@@ -48,7 +48,7 @@ jobs:
           labels: ${{ steps.core_meta.outputs.labels }}
 
       - name: Extract metadata (devcontainer)
-        id: meta
+        id: devcontainer_meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/Lightprotocol/devcontainer
@@ -61,5 +61,22 @@ jobs:
           push: true
           build-args: |
             BASE_IMAGE=${{ steps.core_meta.outputs.tags }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.devcontainer_meta.outputs.tags }}
+          labels: ${{ steps.devcontainer_meta.outputs.labels }}
+
+      - name: Extract metadata (solana-test-validator)
+        id: validator_meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/Lightprotocol/solana-test-validator
+
+      - name: Build and push image (solana-test-validator)
+        uses: docker/build-push-action@v4
+        with:
+          context: solana-test-validator
+          platforms: linux/amd64,linux/arm64
+          push: true
+          build-args: |
+            BASE_IMAGE=${{ steps.devcontainer_meta.outputs.tags }}
+          tags: ${{ steps.validator_meta.outputs.tags }}
+          labels: ${{ steps.validator_meta.outputs.labels }}
