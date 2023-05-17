@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install --assume-yes --no-install-recommends \
     neovim \
+    jq \
     zstd
 RUN update-alternatives --set editor /usr/bin/nvim
 
@@ -20,6 +21,8 @@ RUN curl -s \
     bash -s -- --no-prompt
 RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin" >> \
     /home/node/.profile
+RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin" >> \
+    /home/node/.bashrc
 
 ARG NOOP_PROGRAM_VERSION=0.1.3
 
