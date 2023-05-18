@@ -16,6 +16,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/home/node/.cargo/bin:${PATH}"
 RUN rustup toolchain install nightly
 
+RUN yarn global add @lightprotocol/light
+
 RUN curl -s \
     https://raw.githubusercontent.com/Lightprotocol/install/main/light-protocol-install.sh | \
     bash -s -- --no-prompt
