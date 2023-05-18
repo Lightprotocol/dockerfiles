@@ -19,9 +19,9 @@ RUN rustup toolchain install nightly
 RUN curl -s \
     https://raw.githubusercontent.com/Lightprotocol/install/main/light-protocol-install.sh | \
     bash -s -- --no-prompt
-RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin" >> \
+RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin:/home/node/.config/yarn/global/node_modules/.bin" >> \
     /home/node/.profile
-RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin" >> \
+RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin:/home/node/.config/yarn/global/node_modules/.bin" >> \
     /home/node/.bashrc
 
 ARG NOOP_PROGRAM_VERSION=0.1.3
