@@ -11,19 +11,19 @@ RUN apt-get update && apt-get install --assume-yes --no-install-recommends \
 RUN update-alternatives --set editor /usr/bin/nvim
 
 USER node
+WORKDIR /home/node
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/home/node/.cargo/bin:${PATH}"
 RUN rustup toolchain install nightly
 
-RUN yarn global add @lightprotocol/light
-
 RUN curl -s \
     https://raw.githubusercontent.com/Lightprotocol/install/main/light-protocol-install.sh | \
     bash -s -- --no-prompt
-RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin:/home/node/.config/yarn/global/node_modules/.bin" >> \
-    /home/node/.profile
-RUN echo "PATH=$PATH:/home/node/.cargo/bin:/home/node/.local/light-protocol/bin:/home/node/.config/yarn/global/node_modules/.bin" >> \
+
+RUN echo "PATH=\"/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
+RUN echo "PATH=\"/home/node/.local/light-protocol/bin:\$PATH\"" >> /home/node/.bashrc
+RUN echo "PATH=\"\$(yarn global bin):\$PATH\"" >> \
     /home/node/.bashrc
 
 ARG NOOP_PROGRAM_VERSION=0.1.3
