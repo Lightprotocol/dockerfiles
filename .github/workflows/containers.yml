@@ -14,15 +14,19 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  container:
-    name: container
-    runs-on: ubuntu-latest
+  devcontainer:
+    strategy:
+      matrix:
+        system:
+          - runs-on: buildjet-32vcpu-ubuntu-2204
+            platform: linux/amd64
+          - runs-on: buildjet-32vcpu-ubuntu-2204-arm
+            platform: linux/arm64
+    name: devcontainer - ${{ matrix.system.platform }}
+    runs-on: buildjet-32vcpu-ubuntu-2204
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -59,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: devcontainer
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.system.platform }}
           push: true
           build-args: |
             BASE_IMAGE=${{ steps.core_meta.outputs.tags }}
@@ -82,3 +86,40 @@ jobs:
             BASE_IMAGE=${{ steps.devcontainer_meta.outputs.tags }}
           tags: ${{ steps.validator_meta.outputs.tags }}
           labels: ${{ steps.validator_meta.outputs.labels }}
+  solana:
+    strategy:
+      matrix:
+        system:
+          - runs-on: buildjet-32vcpu-ubuntu-2204
+            platform: linux/amd64
+    name: solana - ${{ matrix.system.platform }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_TOKEN }}
+
+      - name: Extract metadata
+        id: core_meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/Lightprotocol/solana
+
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: solana
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.core_meta.outputs.tags }}
+          labels: ${{ steps.core_meta.outputs.labels }}
+
