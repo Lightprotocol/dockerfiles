@@ -4,9 +4,6 @@ set -eux
 
 source common.sh
 
-# sudo sh -c "ulimit -n 1000000"
-export LimitNOFILE=1000000
-
 solana-validator \
     --ledger "${LEDGER_DIR}" \
     --rpc-port 8899 \
@@ -14,6 +11,7 @@ solana-validator \
     --no-incremental-snapshots \
     --identity "${IDENTITY_KEYPAIR}" \
     --vote-account "${VOTE_KEYPAIR}" \
+    --account-dir /home/solana/accounts \
     --rpc-faucet-address 127.0.0.1:9900 \
     --no-poh-speed-test \
     --no-os-network-limits-test \
