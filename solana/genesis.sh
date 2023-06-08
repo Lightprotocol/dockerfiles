@@ -4,9 +4,13 @@ set -eux
 
 source common.sh
 
-SOLANA_CONFIG_DIR="${HOME}/.config/solana"
 FAUCET_KEYPAIR="${SOLANA_CONFIG_DIR}/faucet.json"
 STAKE_KEYPAIR="${LEDGER_DIR}/stake-account.json"
+
+if [[ -d $LEDGER_DIR ]]; then
+  echo "Bootstrap accounts and genesis hash already initialized"
+  exit 0
+fi
 
 mkdir -p "${LEDGER_DIR}"
 
