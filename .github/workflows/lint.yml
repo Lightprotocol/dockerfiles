@@ -20,4 +20,8 @@ jobs:
         run: sudo apt-get install shellcheck
 
       - name: Run ShellCheck
-        run: find . -name "*.sh" -exec shellcheck -S warning {} \;
+        run: |
+          shopt -s globstar nullglob
+          for f in **/*.sh; do
+            shellcheck -S warning "$f"
+          done
