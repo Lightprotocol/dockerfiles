@@ -81,6 +81,7 @@ COPY common.sh .
 COPY genesis.sh .
 COPY bootstrap-validator.sh .
 COPY validator.sh .
+COPY entrypoint.sh .
 
 ENV PATH="/home/solana/.local/light-protocol/bin:${PATH}"
 
