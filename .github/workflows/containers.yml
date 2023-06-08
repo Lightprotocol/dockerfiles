@@ -80,7 +80,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: solana-test-validator
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.system.platform }}
           push: true
           build-args: |
             BASE_IMAGE=${{ steps.devcontainer_meta.outputs.tags }}
@@ -118,7 +118,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: solana
-          platforms: linux/amd64
+          platforms: ${{ matrix.system.platform }}
           push: true
           tags: ${{ steps.core_meta.outputs.tags }}
           labels: ${{ steps.core_meta.outputs.labels }}
