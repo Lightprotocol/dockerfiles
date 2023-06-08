@@ -84,4 +84,4 @@ COPY validator.sh .
 
 ENV PATH="/home/solana/.local/light-protocol/bin:${PATH}"
 
-ENTRYPOINT ["/validator.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
