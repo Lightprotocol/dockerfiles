@@ -8,7 +8,7 @@ RUN yarn global add @lightprotocol/cli
 
 RUN curl -s \
     https://raw.githubusercontent.com/Lightprotocol/install/main/light-protocol-install.sh | \
-    bash -s -- --no-prompt --skip-toolchain
+    bash -s -- --no-prompt --skip-light-protocol-toolchain
 
 RUN mkdir -p /home/node/.local/light-protocol/lib/accounts
 WORKDIR /home/node/.local/light-protocol/lib/accounts
