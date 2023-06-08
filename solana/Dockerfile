@@ -41,6 +41,7 @@ RUN apt-get update && apt-get install --assume-yes --no-install-recommends \
     bzip2 \
     ca-certificates \
     curl \
+    jq \
     libssl-dev \
     zstd
 

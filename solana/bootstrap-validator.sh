@@ -11,7 +11,7 @@ solana-validator \
     --no-incremental-snapshots \
     --identity "${IDENTITY_KEYPAIR}" \
     --vote-account "${VOTE_KEYPAIR}" \
-    --account-dir /home/solana/accounts \
+    --accounts $(find /home/solana/accounts -name "*.json" -printf "%p\n" | paste -sd "," -) \
     --rpc-faucet-address 127.0.0.1:9900 \
     --no-poh-speed-test \
     --no-os-network-limits-test \
