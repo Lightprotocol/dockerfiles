@@ -2,6 +2,11 @@
 
 set -eux
 
+if [ "${POD_NAME}" != "solana-0" ]; then
+  echo "Not the bootstrap validator, skipping"
+  exit 0
+fi
+
 source common.sh
 
 FAUCET_KEYPAIR="${SOLANA_CONFIG_DIR}/faucet.json"
