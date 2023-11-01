@@ -4,7 +4,7 @@ FROM ${BASE_IMAGE}
 
 USER node
 
-RUN yarn global add @lightprotocol/cli
+RUN npm install -g @lightprotocol/cli
 
 WORKDIR /home/node
 
