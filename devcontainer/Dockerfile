@@ -4,7 +4,7 @@ FROM ${BASE_IMAGE}
 
 USER node
 
-RUN npm install -g @lightprotocol/cli
+RUN pnpm install -g only-allow @lightprotocol/cli
 
 WORKDIR /home/node
 

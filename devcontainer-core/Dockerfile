@@ -16,11 +16,13 @@ WORKDIR /home/node
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/home/node/.cargo/bin:${PATH}"
 
-RUN npm config set prefix /home/node/.npm-global
+RUN corepack enable
 
-RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
+RUN pnpm config set pnpm-prefix /home/node/.pnpm-global
+RUN echo "PATH=\"/home/node/.pnpm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
-RUN npm install -g \
+
+RUN pnpm install -g \
     typescript \
     typescript-language-server
 
