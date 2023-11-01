@@ -22,6 +22,9 @@ RUN rustup component add rustfmt
 RUN npm config set npm-prefix /home/node/.npm-global
 RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
+
+RUN mkdir -p /home/node/.pnpm/bin
+RUN echo "PNPM_HOME=/home/node/.pnpm/bin"
 RUN pnpm config set pnpm-prefix /home/node/.pnpm-global
 RUN echo "PATH=\"/home/node/.pnpm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
