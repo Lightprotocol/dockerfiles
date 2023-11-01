@@ -17,6 +17,7 @@ WORKDIR /home/node
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/home/node/.cargo/bin:${PATH}"
+RUN rustup component add rustfmt
 
 RUN npm config set npm-prefix /home/node/.npm-global
 RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
