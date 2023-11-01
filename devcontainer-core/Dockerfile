@@ -27,7 +27,7 @@ RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /
 
 RUN npm install -g \
     typescript \
-    typescript-language-server
+    typescript-language-server@3.3.2
 
 # To ensure that the `/home/node/.config/solana` volume is going to be owned by
 # the `node` user. Otherwise it'd be owned by root.
