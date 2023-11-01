@@ -20,7 +20,7 @@ RUN echo "PATH=\"/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
 RUN yarn global add \
     typescript \
-    typescript-language-server
+    typescript-language-server@3.3.2
 
 # To ensure that the `/home/node/.config/solana` volume is going to be owned by
 # the `node` user. Otherwise it'd be owned by root.
