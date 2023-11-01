@@ -16,11 +16,13 @@ WORKDIR /home/node
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/home/node/.cargo/bin:${PATH}"
 
-RUN echo "PATH=\"/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
+RUN npm config set prefix /home/node/.npm-global
 
-RUN yarn global add \
+RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
+
+RUN npm install -g \
     typescript \
-    typescript-language-server@3.3.2
+    typescript-language-server
 
 # To ensure that the `/home/node/.config/solana` volume is going to be owned by
 # the `node` user. Otherwise it'd be owned by root.
