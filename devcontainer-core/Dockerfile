@@ -10,28 +10,27 @@ RUN apt-get update && apt-get install --assume-yes --no-install-recommends \
     zstd
 RUN update-alternatives --set editor /usr/bin/nvim
 
+RUN corepack enable
+RUN corepack prepare pnpm@8.9.2 --activate
+RUN env SHELL=/bin/bash pnpm setup
+
 USER node
 WORKDIR /home/node
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/home/node/.cargo/bin:${PATH}"
-RUN rustup toolchain install nightly
+RUN rustup component add rustfmt
 
-RUN curl -s \
-    https://raw.githubusercontent.com/Lightprotocol/install/main/light-protocol-install.sh | \
-    bash -s -- --no-prompt
+RUN mkdir -p /home/node/.npm-global
+RUN npm config set prefix /home/node/.npm-global
+RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
-RUN echo "PATH=\"/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
-RUN echo "PATH=\"/home/node/.local/light-protocol/bin:\$PATH\"" >> /home/node/.bashrc
-RUN echo "PATH=\"\$(yarn global bin):\$PATH\"" >> \
-    /home/node/.bashrc
+RUN sh -c "$(curl -sSfL https://release.solana.com/v1.16.18/install)"
+RUN cargo install cargo-expand
 
-ARG NOOP_PROGRAM_VERSION=0.1.3
-
-RUN mkdir -p /home/node/.local/light-protocol/lib/solana-program-library
-RUN curl -L \
-    -o /home/node/.local/light-protocol/lib/solana-program-library/spl_noop.so \
-    https://github.com/Lightprotocol/solana-program-library/releases/download/noop-${NOOP_PROGRAM_VERSION}/spl_noop.so
+RUN npm install -g \
+    typescript \
+    typescript-language-server@3.3.2
 
 # To ensure that the `/home/node/.config/solana` volume is going to be owned by
 # the `node` user. Otherwise it'd be owned by root.
