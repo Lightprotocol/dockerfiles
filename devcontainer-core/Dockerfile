@@ -12,7 +12,7 @@ RUN update-alternatives --set editor /usr/bin/nvim
 
 RUN corepack enable
 RUN corepack prepare pnpm@8.9.2 --activate
-RUN pnpm setup
+RUN env SHELL=/bin/bash pnpm setup
 
 USER node
 WORKDIR /home/node
