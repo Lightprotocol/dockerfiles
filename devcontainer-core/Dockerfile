@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install --assume-yes --no-install-recommends \
     zstd
 RUN update-alternatives --set editor /usr/bin/nvim
 
+RUN corepack enable
+
 USER node
 WORKDIR /home/node
 
@@ -18,8 +20,6 @@ ENV PATH="/home/node/.cargo/bin:${PATH}"
 
 RUN npm config set npm-prefix /home/node/.npm-global
 RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
-
-RUN corepack enable
 
 RUN pnpm config set pnpm-prefix /home/node/.pnpm-global
 RUN echo "PATH=\"/home/node/.pnpm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
