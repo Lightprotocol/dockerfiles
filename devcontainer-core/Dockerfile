@@ -25,6 +25,9 @@ RUN mkdir -p /home/node/.npm-global
 RUN npm config set prefix /home/node/.npm-global
 RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
+RUN sh -c "$(curl -sSfL https://release.solana.com/v1.16.18/install)"
+RUN cargo install cargo-expand
+
 RUN npm install -g \
     typescript \
     typescript-language-server@3.3.2
