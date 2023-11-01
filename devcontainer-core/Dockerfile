@@ -24,7 +24,7 @@ RUN rustup component add rustfmt
 RUN npm config set npm-prefix /home/node/.npm-global
 RUN echo "PATH=\"/home/node/.npm-global/bin:/home/node/.cargo/bin:\$PATH\"" >> /home/node/.bashrc
 
-RUN pnpm install -g \
+RUN npm install -g \
     typescript \
     typescript-language-server
 
