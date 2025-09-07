@@ -42,7 +42,7 @@ jobs:
         id: core_meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/Lightprotocol/devcontainer-core
+          images: ${{ env.REGISTRY }}/lightprotocol/devcontainer-core
 
       - name: Build and push image (devcontainer-core)
         uses: docker/build-push-action@v4
@@ -57,7 +57,7 @@ jobs:
         id: devcontainer_meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/Lightprotocol/devcontainer
+          images: ${{ env.REGISTRY }}/lightprotocol/devcontainer
 
       - name: Build and push image (devcontainer)
         uses: docker/build-push-action@v4
@@ -74,7 +74,7 @@ jobs:
         id: validator_meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/Lightprotocol/solana-test-validator
+          images: ${{ env.REGISTRY }}/lightprotocol/solana-test-validator
 
       - name: Build and push image (solana-test-validator)
         uses: docker/build-push-action@v4
