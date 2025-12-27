@@ -2,7 +2,7 @@
 
 set -e
 
-export PATH="/home/node/.local/light-protocol/bin:/home/node/.cargo/bin:${PATH}"
+export PATH="/home/node/.local/share/solana/install/active_release/bin:/home/node/.cargo/bin:${PATH}"
 
 KEYPAIR_FILE="${HOME}/.config/solana/id.json"
 
@@ -13,4 +13,4 @@ if [[ ! -f "${KEYPAIR_FILE}" ]]; then
     solana-keygen new --no-bip39-passphrase -o "${KEYPAIR_FILE}"
 fi
 
-exec /home/node/.local/light-protocol/bin/solana-test-validator "$@"
+exec solana-test-validator "$@"
